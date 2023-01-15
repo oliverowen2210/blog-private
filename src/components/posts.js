@@ -8,14 +8,33 @@ const Posts = function () {
   //get posts
   useEffect(() => {
     async function fetchData() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        const err = new Error("No JWT found.");
+        err.status = 404;
+        setError(err);
+        return;
+      }
       const postsData = await fetch(
-        "https://blog-api-production-c97a.up.railway.app"
+        "https://blog-api-production-c97a.up.railway.app/private/posts",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
       const posts = await postsData.json();
       setPosts(posts);
     }
-    fetchData();
-  }, []);
+    try {
+      fetchData();
+    } catch (err) {
+      if (err.status === 401) {
+        navigate("/login");
+      }
+      setError(err);
+    }
+  }, [navigate]);
 
   return (
     <div>
