@@ -26,6 +26,7 @@ const Posts = function () {
     }
   }
   return (
+    <div>
     <form action="" method="POST">
       <div className="inputGroup">
         <label htmlFor="email">Email</label>
