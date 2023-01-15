@@ -6,6 +6,7 @@ import "./App.css";
 
 import Posts from "./components/posts";
 import Login from "./components/login";
+import Layout from "./components/layout";
 
 function App() {
   return (
