@@ -4,6 +4,7 @@ import axios from "axios";
 const Posts = function () {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   async function submitHandler(event) {
     event.preventDefault();
