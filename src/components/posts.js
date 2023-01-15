@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import format from "date-fns/format";
 
 const Posts = function () {
@@ -25,18 +26,20 @@ const Posts = function () {
             "MMMM Qo, yyyy"
           );
           return (
-            <div className="post" key={post.id}>
-              <div className="post-header">
-                <h2>{post.title}</h2>
-                <p>posted on {formattedDate}</p>
+            <Link to={`/post/${post.id}`}>
+              <div className="post" key={post.id}>
+                <div className="post-header">
+                  <h2>{post.title}</h2>
+                  <p>posted on {formattedDate}</p>
+                </div>
+                <p className="post-text">{post.text}</p>
+                {post.published ? (
+                  <p className="published">Published</p>
+                ) : (
+                  <p className="unpublished">Unpublished</p>
+                )}
               </div>
-              <p className="post-text">{post.text}</p>
-              {post.published ? (
-                <p className="published">Published</p>
-              ) : (
-                <p className="unpublished">Unpublished</p>
-              )}
-            </div>
+            </Link>
           );
         })
       ) : (
