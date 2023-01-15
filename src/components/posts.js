@@ -19,7 +19,11 @@ const Posts = function () {
 
   return (
     <div>
-      {posts ? (
+      {error ? (
+        <div>
+          <p>error.message</p>
+        </div>
+      ) : posts ? (
         posts.map((post) => {
           const formattedDate = format(
             new Date(post.createdAt),
