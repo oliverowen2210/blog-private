@@ -23,8 +23,14 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Posts />} />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={JWT ? <Navigate to="/" /> : <Login checkJWT={checkJWT} />}
+      />
+      <Route element={JWT ? <Layout /> : <Navigate to="/login" />}>
+        <Route path="/" element={<Posts />} />
+        <Route index element={<Posts />} />
+      </Route>
     </Routes>
   );
 }
