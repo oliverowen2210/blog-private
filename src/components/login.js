@@ -40,6 +40,13 @@ const Posts = function () {
       </div>
       <button onClick={(event) => submitHandler(event)}>Submit</button>
     </form>
+
+      {errors
+        ? errors.map((err) => {
+            return <p>{err.message}</p>;
+          })
+        : null}
+    </div>
   );
 };
 
