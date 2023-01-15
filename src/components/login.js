@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Posts = function () {
+const Posts = function (props) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [errors, setErrors] = useState([]);
@@ -22,6 +22,7 @@ const Posts = function () {
         const token = response.data.token;
         localStorage.setItem("token", `Bearer: ${token}`);
         axios.defaults.headers.common["Authorization"] = `Bearer: ${token}`;
+        props.checkJWT();
         navigate("/");
       }
     } catch (err) {
