@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import format from "date-fns/format";
 
 const Posts = function () {
   let [posts, setPosts] = useState(null);
+  let [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   //get posts
   useEffect(() => {
