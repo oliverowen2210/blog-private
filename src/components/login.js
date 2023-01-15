@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Posts = function () {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   async function submitHandler(event) {
     event.preventDefault();
