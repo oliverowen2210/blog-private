@@ -9,6 +9,8 @@ import Login from "./components/login";
 import Layout from "./components/layout";
 
 function App() {
+  let [JWT, setJWT] = useState(false);
+
   return (
     <Routes>
       <Route path="/" element={<Posts />} />
