@@ -4,6 +4,13 @@ import format from "date-fns/format";
 const Posts = function () {
   let [posts, setPosts] = useState(null);
   let [JWT, setJWT] = useState(false);
+
+  function checkJWT() {
+    if (localStorage.getItem("token")) {
+      setJWT(localStorage.getItem("token"));
+    } else setJWT(null);
+  }
+
   useEffect(() => {
     async function fetchData() {
       const postsData = await fetch(
@@ -12,8 +19,9 @@ const Posts = function () {
       const posts = await postsData.json();
       setPosts(posts);
     }
-    fetchData();
-  }, []);
+    checkJWT();
+    if (JWT) fetchData();
+  }, [JWT]);
 
   return (
     <div className="App">
