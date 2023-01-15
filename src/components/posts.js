@@ -44,7 +44,7 @@ const Posts = function () {
         })
       ) : (
         <div>
-          <p>There are no posts to display.</p>
+          <p>Loading...</p>
         </div>
       )}
     </div>
