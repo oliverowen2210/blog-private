@@ -10,14 +10,20 @@ const Posts = function () {
 
   async function submitHandler(event) {
     event.preventDefault();
-    const response = await axios.post(
-      "https://blog-api-production-c97a.up.railway.app/login",
-      {
+    try {
+      const response = await axios.post("http://localhost:3001/login", {
         email,
         password,
+      });
+      if (response && response.data.token) {
+        const token = response.data.token;
+        localStorage.setItem("token", `Bearer: ${token}`);
+        axios.defaults.headers.common["Authorization"] = `Bearer: ${token}`;
+        navigate("/");
       }
-    );
-    console.log(response);
+    } catch (err) {
+      setErrors([err]);
+    }
   }
   return (
     <form action="" method="POST">
