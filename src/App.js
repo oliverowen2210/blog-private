@@ -4,9 +4,10 @@ import { Navigate } from "react-router";
 
 import "./App.css";
 
-import Posts from "./components/posts";
-import Login from "./components/login";
-import Layout from "./components/layout";
+import Posts from "./components/Posts";
+import Post from "./components/Post";
+import Login from "./components/Login";
+import Layout from "./components/Layout";
 
 function App() {
   let [JWT, setJWT] = useState(false);
