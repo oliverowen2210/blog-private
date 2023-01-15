@@ -11,6 +11,16 @@ import Layout from "./components/layout";
 function App() {
   let [JWT, setJWT] = useState(false);
 
+  function checkJWT() {
+    if (localStorage.getItem("token")) {
+      setJWT(localStorage.getItem("token"));
+    } else setJWT(null);
+  }
+
+  useEffect(() => {
+    checkJWT();
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Posts />} />
