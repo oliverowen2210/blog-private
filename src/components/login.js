@@ -20,8 +20,8 @@ const Posts = function (props) {
       );
       if (response && response.data.token) {
         const token = response.data.token;
-        localStorage.setItem("token", `Bearer: ${token}`);
-        axios.defaults.headers.common["Authorization"] = `Bearer: ${token}`;
+        localStorage.setItem("token", `${token}`);
+        axios.defaults.headers.common["Authorization"] = `${token}`;
         props.checkJWT();
         navigate("/");
       }
