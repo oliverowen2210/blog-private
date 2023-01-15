@@ -3,6 +3,7 @@ import format from "date-fns/format";
 
 const Posts = function () {
   let [posts, setPosts] = useState(null);
+  let [JWT, setJWT] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const postsData = await fetch(
