@@ -10,19 +10,23 @@ import Login from "./components/Login";
 import Layout from "./components/Layout";
 
 function App() {
+  let [busy, setBusy] = useState(true);
   let [JWT, setJWT] = useState(false);
 
   function checkJWT() {
     if (localStorage.getItem("token")) {
       setJWT(localStorage.getItem("token"));
     } else setJWT(null);
+    setBusy(false);
   }
 
   useEffect(() => {
     checkJWT();
   }, []);
 
-  return (
+  return busy ? (
+    <div>Loading...</div>
+  ) : (
     <Routes>
       <Route
         path="/login"
