@@ -13,14 +13,6 @@
   padding: 12px;
 }
 
-.published {
-  color: green;
-}
-
-.unpublished {
-  color: purple;
-}
-
 .screenBlock {
   background-color: rgba(0, 0, 0, 0.185);
   z-index: 1;
@@ -75,4 +67,16 @@
 
 .modalFooter {
   height: 33%;
+}
+
+.postDetailPublished {
+  color: rgb(0, 184, 0);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.postDetailUnpublished {
+  color: purple;
+  font-size: 1.2em;
+  font-weight: bold;
 }
