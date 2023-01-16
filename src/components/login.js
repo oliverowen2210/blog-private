@@ -12,7 +12,7 @@ const Posts = function (props) {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://blog-api-production-c97a.up.railway.app/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         {
           email,
           password,
