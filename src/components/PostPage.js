@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import format from "date-fns/format";
 
 import { ModalContext } from "./Layout";
+import SVGs from "../images/SVGS";
 
 const PostPage = function () {
   let [post, setPost] = useState(null);
@@ -98,30 +99,57 @@ const PostPage = function () {
   }
 
   return (
-    <div>
+    <div className="postDetailWrapper">
       {error ? (
         <div>
           <p>{error}</p>
         </div>
       ) : post ? (
-        <div className="post" key={post.id}>
-          <div className="post-header">
-            <h2>{post.title}</h2>
-            <p>posted on {formattedDate}</p>
-            <button
-              onClick={(event) => {
-                deleteButtonHandler(event);
-              }}
-            >
-              x
+        <div className="postDetail" key={post.id}>
+          <div className="postDetailHeader flexRow">
+            <h2 className="postDetailTitle">{post.title}</h2>
+
+            <div className="flexGrow" />
+            <div className="postDetailButtons flexRow">
+              <button className="postDetailUpdateButton postDetailButton">
+                ✎
+              </button>
+              <button
+                className="postDetailDeleteButton postDetailButton"
+                onClick={(event) => {
+                  deleteButtonHandler(event);
+                }}
+              >
+                X
+              </button>
+            </div>
+          </div>
+          <div class="postDetailInfo flexRow">
+            <p>
+              By{" "}
+              <a
+                href="https://oliverowen2210.github.com"
+                className="postDetailLink"
+              >
+                Oliver Owen
+              </a>
+            </p>
+            <p className="postDetailDate">Posted on {formattedDate}</p>
+          </div>
+          <div className="postDetailBody">
+            <p className="postDetailText">{post.text}</p>
+          </div>
+          <div className="postDetailFooter flexRow">
+            {post.published ? (
+              <p className="postDetailPublished">Published</p>
+            ) : (
+              <p className="postDetailUnpublished">Unpublished</p>
+            )}
+            <div className="flexGrow" />
+            <button className="postDetailToggleVisibilityButton postDetailButton">
+              O
             </button>
           </div>
-          <p className="post-text">{post.text}</p>
-          {post.published ? (
-            <p className="published">Published</p>
-          ) : (
-            <p className="unpublished">Unpublished</p>
-          )}
         </div>
       ) : (
         <div>
