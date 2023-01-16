@@ -5,6 +5,13 @@ import ScreenBlock from "./ScreenBlock";
 import Modal from "./Modal";
 
 const Layout = function () {
+  const [blockScreen, setBlockScreen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState(null);
+  const [modalText, setModalText] = useState(null);
+  const [modalButtonFunc, setModalButtonFunc] = useState(null);
+  const [modalButtonText, setModalButtonText] = useState(null);
+
   return (
     <div>
       <ScreenBlock show={blockScreen} />
