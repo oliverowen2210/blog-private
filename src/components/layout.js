@@ -49,7 +49,7 @@ const Layout = function () {
   }
 
   return (
-    <div>
+    <div className="layoutWrapper">
       <ScreenBlock show={blockScreen} />
       <Modal
         show={showModal}
@@ -59,11 +59,16 @@ const Layout = function () {
         buttonFunc={modalButtonFunc}
         buttonText={modalButtonText}
       />
-      <div style={{ zIndex: 0, position: "relative" }}>
-        <ModalContext.Provider value={createModal}>
-          <Outlet />
-        </ModalContext.Provider>
-      </div>
+
+      <ModalContext.Provider value={createModal}>
+        <div className="layout flexCol">
+          <div className="layoutHeader" />
+          <div className="layoutBody">
+            <Outlet />
+          </div>
+          <div className="layoutFooter" />
+        </div>
+      </ModalContext.Provider>
     </div>
   );
 };

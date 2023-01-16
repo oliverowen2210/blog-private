@@ -41,7 +41,7 @@ const PostsPage = function () {
   }, [navigate]);
 
   return (
-    <div>
+    <div className="postsList">
       {error ? (
         <div>
           <p>error.message</p>

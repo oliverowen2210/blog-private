@@ -5,7 +5,7 @@ import format from "date-fns/format";
 const PostCard = function (props) {
   return (
     <Link to={`/post/${props.post.id}`}>
-      <div className="post" key={props.post.id}>
+      <div className="postCard" key={props.post.id}>
         <div className="post-header">
           <div className="flexRow">
             <h2>{props.post.title}</h2>
