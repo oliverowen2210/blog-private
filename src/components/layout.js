@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router";
+import { Link } from "react-router-dom";
 
 import ScreenBlock from "./ScreenBlock";
 import Modal from "./Modal";
@@ -62,7 +63,11 @@ const Layout = function () {
 
       <ModalContext.Provider value={createModal}>
         <div className="layout flexCol">
-          <div className="layoutHeader" />
+          <div className="layoutHeader">
+            <Link to="/">
+              <h1>Blog API (Private)</h1>
+            </Link>
+          </div>
           <div className="layoutBody">
             <Outlet />
           </div>
