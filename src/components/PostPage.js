@@ -128,7 +128,7 @@ const PostPage = function () {
             <p>
               By{" "}
               <a
-                href="https://oliverowen2210.github.com"
+                href="https://github.com/oliverowen2210"
                 className="postDetailLink"
               >
                 Oliver Owen
