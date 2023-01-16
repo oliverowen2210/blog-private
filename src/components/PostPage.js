@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import format from "date-fns/format";
 
-const Post = function () {
+import { ModalContext } from "./Layout";
+
+const PostPage = function () {
   let [post, setPost] = useState(null);
   let [error, setError] = useState(null);
   let [formattedDate, setFormattedDate] = useState(null);
   const postID = parseInt(useParams().postid);
   const navigate = useNavigate();
+
+  const createModal = useContext(ModalContext);
 
   function formatDate(post) {
     setFormattedDate(format(new Date(post.createdAt), "MMMM Qo, yyyy"));
@@ -26,7 +30,7 @@ const Post = function () {
       }
       try {
         const postData = await fetch(
-          `https://blog-api-production-c97a.up.railway.app/private/posts/${postID}`,
+          `${process.env.REACT_APP_API_URL}/private/posts/${postID}`,
           {
             headers: {
               Authorization: token,
@@ -58,6 +62,41 @@ const Post = function () {
     }
   }, [navigate, postID]);
 
+  function deleteButtonHandler(event) {
+    event.preventDefault();
+    const deletePost = async function () {
+      try {
+        console.log("delete post fired");
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          const err = new Error("No JWT found.");
+          err.status = 404;
+          setError(err);
+          return;
+        }
+        await fetch(
+          `${process.env.REACT_APP_API_URL}/private/posts/${post.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    createModal(
+      "Deleting post",
+      `Are you sure you want to delete ${post.title}?`,
+      deletePost,
+      "Yes, I am sure."
+    );
+  }
+
   return (
     <div>
       {error ? (
@@ -69,6 +108,13 @@ const Post = function () {
           <div className="post-header">
             <h2>{post.title}</h2>
             <p>posted on {formattedDate}</p>
+            <button
+              onClick={(event) => {
+                deleteButtonHandler(event);
+              }}
+            >
+              x
+            </button>
           </div>
           <p className="post-text">{post.text}</p>
           {post.published ? (
@@ -86,4 +132,4 @@ const Post = function () {
   );
 };
 
-export default Post;
+export default PostPage;

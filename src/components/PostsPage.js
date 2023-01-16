@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import format from "date-fns/format";
 
-const Posts = function () {
+import PostCard from "./PostCard";
+
+const PostsPage = function () {
   let [posts, setPosts] = useState(null);
   let [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Posts = function () {
         return;
       }
       const postsData = await fetch(
-        "https://blog-api-production-c97a.up.railway.app/private/posts",
+        `${process.env.REACT_APP_API_URL}/private/posts`,
         {
           headers: {
             Authorization: token,
@@ -47,26 +48,7 @@ const Posts = function () {
         </div>
       ) : posts ? (
         posts.map((post) => {
-          const formattedDate = format(
-            new Date(post.createdAt),
-            "MMMM Qo, yyyy"
-          );
-          return (
-            <Link to={`/post/${post.id}`}>
-              <div className="post" key={post.id}>
-                <div className="post-header">
-                  <h2>{post.title}</h2>
-                  <p>posted on {formattedDate}</p>
-                </div>
-                <p className="post-text">{post.text}</p>
-                {post.published ? (
-                  <p className="published">Published</p>
-                ) : (
-                  <p className="unpublished">Unpublished</p>
-                )}
-              </div>
-            </Link>
-          );
+          return <PostCard post={post} />;
         })
       ) : (
         <div>
@@ -77,4 +59,4 @@ const Posts = function () {
   );
 };
 
-export default Posts;
+export default PostsPage;
