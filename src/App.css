@@ -6,13 +6,6 @@
   align-items: center;
 }
 
-.postCard {
-  border: 3px solid darkblue;
-  border-radius: 1em;
-  margin-bottom: 32px;
-  padding: 12px;
-}
-
 .screenBlock {
   background-color: rgba(0, 0, 0, 0.185);
   z-index: 1;
@@ -79,9 +72,74 @@
   height: 33%;
 }
 
+.layoutHeader {
+  background-color: rgb(0, 0, 32);
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+  height: 125px;
+  margin-bottom: 32px;
+}
+
 .layoutBody {
   display: flex;
   justify-content: center;
+}
+
+.postsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.postCard {
+  border: 3px solid rgb(55, 90, 179);
+  box-shadow: 0px 0px 3px darkblue;
+
+  width: 400px;
+  background-color: white;
+  border-radius: 1em;
+  margin-bottom: 32px;
+  padding: 8x 0;
+}
+
+.postCard:hover {
+  outline: 2px solid rgb(55, 90, 179);
+}
+
+.postCardHeader,
+.postCardInfo,
+.postCardBody,
+.postCardFooter {
+  padding: 0 36px;
+}
+
+.postCardInfo,
+.postCardBody {
+  border-bottom: 1px solid rgb(102, 107, 122);
+}
+
+.postCardHeader {
+  height: 36px;
+}
+
+.postCardInfo {
+}
+
+.postCardBody {
+  height: 125px;
+}
+
+.postCardPublished {
+  color: rgb(0, 184, 0);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.postCardUnpublished {
+  color: purple;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .postDetailWrapper {
@@ -113,13 +171,16 @@
   border-bottom: 1px solid rgb(102, 107, 122);
 }
 
+.postCardLink,
 .postDetailLink {
-  text-decoration: none;
+  color: rgb(20, 114, 255);
 }
 
+.postCardLink::after,
 .postDetailLink::after {
   content: "•";
   margin: 0px 6px;
+  color: black;
 }
 
 .postDetailBody {
