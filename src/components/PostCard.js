@@ -6,20 +6,37 @@ const PostCard = function (props) {
   return (
     <Link to={`/post/${props.post.id}`}>
       <div className="postCard" key={props.post.id}>
-        <div className="post-header">
-          <div className="flexRow">
-            <h2>{props.post.title}</h2>
-          </div>
+        <div className="postCardHeader">
+          <h2 className="postCardTitle">{props.post.title}</h2>
+        </div>
+
+        <div className="postCardInfo flexRow">
           <p>
-            posted on {format(new Date(props.post.createdAt), "MMMM Qo, yyyy")}
+            {" "}
+            By{" "}
+            <a
+              href="https://oliverowen2210.github.com"
+              className="postCardLink"
+            >
+              Oliver Owen
+            </a>
+          </p>
+          <p className="postCardDate">
+            Posted on {format(new Date(props.post.createdAt), "MMMM Qo, yyyy")}
           </p>
         </div>
-        <p className="post-text">{props.post.text}</p>
-        {props.post.published ? (
-          <p className="published">Published</p>
-        ) : (
-          <p className="unpublished">Unpublished</p>
-        )}
+
+        <div className="postCardBody">
+          <p className="postText">{props.post.text}</p>
+        </div>
+
+        <div className="postCardFooter">
+          {props.post.published ? (
+            <p className="postCardPublished">Published</p>
+          ) : (
+            <p className="postCardUnpublished">Unpublished</p>
+          )}
+        </div>
       </div>
     </Link>
   );
