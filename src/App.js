@@ -10,6 +10,8 @@ import Login from "./components/Login";
 import Layout from "./components/Layout";
 
 function App() {
+  /**Busy state stops page from redirecting you before it checks for JWT
+   */
   let [busy, setBusy] = useState(true);
   let [JWT, setJWT] = useState(false);
 
