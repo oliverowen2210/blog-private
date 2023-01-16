@@ -22,6 +22,15 @@ code {
     monospace;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
 button {
   background-color: black;
   color: rgb(228, 228, 228);
