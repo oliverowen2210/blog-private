@@ -3,12 +3,19 @@ import { Editor } from "@tinymce/tinymce-react";
 
 const NewPost = function (props) {
   const editorRef = useRef(null);
+  const [title, setTitle] = useState(null);
   return (
     <div className="newPostWrapper">
       <form className="newPostForm">
         <div className="newPostInputGroup">
           <label htmlFor="title">Title</label>
-          <input type="text" name="title" id="title" />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            onChange={(event) => setTitle(event.target.value)}
+            placeholder="My Blog Title"
+          />
         </div>
         <div className="newPostInputGroup">
           <label htmlFor="text">Text</label>
