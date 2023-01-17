@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import PostCard from "./PostCard";
 
-const PostsPage = function () {
+const PostsList = function () {
   let [posts, setPosts] = useState(null);
   let [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const PostsPage = function () {
         return;
       }
       const postsData = await fetch(
-        `${process.env.REACT_APP_API_URL}/private/posts`,
+        `${process.env.REACT_APP_BLOG_API_URL}/private/posts`,
         {
           headers: {
             Authorization: token,
@@ -41,22 +41,27 @@ const PostsPage = function () {
   }, [navigate]);
 
   return (
-    <div className="postsList">
-      {error ? (
-        <div>
-          <p>error.message</p>
-        </div>
-      ) : posts ? (
-        posts.map((post) => {
-          return <PostCard post={post} />;
-        })
-      ) : (
-        <div>
-          <p>Loading...</p>
-        </div>
-      )}
+    <div className="postsListWrapper">
+      <Link to="/new_post" className="postsListNewPost">
+        <button>Create New Post</button>
+      </Link>
+      <div className="postsList">
+        {error ? (
+          <div>
+            <p>error.message</p>
+          </div>
+        ) : posts ? (
+          posts.map((post) => {
+            return <PostCard post={post} />;
+          })
+        ) : (
+          <div>
+            <p>Loading...</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default PostsPage;
+export default PostsList;
