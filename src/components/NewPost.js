@@ -4,6 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 const NewPost = function (props) {
   const editorRef = useRef(null);
   const [title, setTitle] = useState(null);
+  const [text, setText] = useState(null);
   return (
     <div className="newPostWrapper">
       <form className="newPostForm">
@@ -17,11 +18,14 @@ const NewPost = function (props) {
             placeholder="My Blog Title"
           />
         </div>
-        <div className="newPostInputGroup">
+        <div className="newPostInputGroup tinyMCE">
           <label htmlFor="text">Text</label>
+          {/** the tinyMCE text editor */}
           <Editor
             onInit={(evt, editor) => (editorRef.current = editor)}
-            initialValue="<p>This is the initial content of the editor.</p>"
+            apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+            initialValue=""
+            onEditorChange={(newValue, editor) => setText(newValue)}
             init={{
               height: 500,
               menubar: false,
