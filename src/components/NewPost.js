@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 const NewPost = function (props) {
