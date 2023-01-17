@@ -4,9 +4,8 @@ import { useParams } from "react-router-dom";
 import format from "date-fns/format";
 
 import { ModalContext } from "./Layout";
-import SVGs from "../images/SVGS";
 
-const PostPage = function () {
+const PostDetail = function () {
   let [post, setPost] = useState(null);
   let [error, setError] = useState(null);
   let [formattedDate, setFormattedDate] = useState(null);
@@ -31,7 +30,7 @@ const PostPage = function () {
       }
       try {
         const postData = await fetch(
-          `${process.env.REACT_APP_API_URL}/private/posts/${postID}`,
+          `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${postID}`,
           {
             headers: {
               Authorization: token,
@@ -45,7 +44,9 @@ const PostPage = function () {
         }
         const postJSON = await postData.json();
         const post = postJSON.post;
-        const comments = postJSON.comments;
+        /** get comments for later 
+        /* const comments = postJSON.comments;
+        */
         formatDate(post);
         setPost(post);
       } catch (err) {
@@ -77,7 +78,7 @@ const PostPage = function () {
           return;
         }
         await fetch(
-          `${process.env.REACT_APP_API_URL}/private/posts/${post.id}`,
+          `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${post.id}`,
           {
             method: "DELETE",
             headers: {
@@ -124,7 +125,7 @@ const PostPage = function () {
               </button>
             </div>
           </div>
-          <div class="postDetailInfo flexRow">
+          <div className="postDetailInfo flexRow">
             <p>
               By{" "}
               <a
@@ -160,4 +161,4 @@ const PostPage = function () {
   );
 };
 
-export default PostPage;
+export default PostDetail;
