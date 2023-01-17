@@ -6,6 +6,13 @@ const NewPost = function (props) {
   const [title, setTitle] = useState(null);
   const [text, setText] = useState(null);
   const [publish, setPublish] = useState(false);
+
+  function submitButtonHandler(event) {
+    event.preventDefault();
+    console.log(`title: ${title}`);
+    console.log(`text: ${text}`);
+    console.log(`publish?: ${publish}`);
+  }
   return (
     <div className="newPostWrapper">
       <form className="newPostForm">
@@ -72,6 +79,10 @@ const NewPost = function (props) {
             </div>
           </div>
         </div>
+
+        <button onClick={(event) => submitButtonHandler(event)}>
+          Create Post
+        </button>
       </form>
     </div>
   );
