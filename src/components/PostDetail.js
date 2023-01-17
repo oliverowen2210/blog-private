@@ -18,7 +18,7 @@ const PostDetail = function () {
     setFormattedDate(format(new Date(post.createdAt), "MMMM Qo, yyyy"));
   }
 
-  //get posts
+  //get post
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
