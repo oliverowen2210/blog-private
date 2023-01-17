@@ -267,8 +267,26 @@
   margin-bottom: 24px;
 }
 
-.newPostInputGroup input,
-.newPostInputGroup textarea {
+.newPostPublishRadio > input {
+  margin-left: 8px;
+  margin-right: 16px;
+  outline: none;
+}
+
+.newPostPublishRadio > input:focus {
+  outline: 1px solid gray;
+}
+
+.tinyMCE {
+  height: 530px;
+}
+
+.tox-tinymce {
+  outline: 2px solid black;
+}
+
+.newPostInputGroup > input,
+.newPostInputGroup > textarea {
   border-radius: 0.5em;
   font-size: 1.1em;
   padding: 4px 8px;
@@ -278,7 +296,7 @@
   border: none;
 }
 
-.newPostInputGroup input:focus {
+.newPostInputGroup > input:focus {
   outline: 3px solid black;
   color: black;
   box-shadow: 0px 0px 5px darkblue;
