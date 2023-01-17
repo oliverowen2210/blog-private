@@ -4,8 +4,9 @@ import { Navigate } from "react-router";
 
 import "./App.css";
 
-import PostsPage from "./components/PostsPage";
-import PostPage from "./components/PostPage";
+import PostsList from "./components/PostsList";
+import PostDetail from "./components/PostDetail";
+import NewPost from "./components/NewPost";
 import Login from "./components/Login";
 import Layout from "./components/Layout";
 
@@ -35,8 +36,9 @@ function App() {
         element={JWT ? <Navigate to="/" /> : <Login checkJWT={checkJWT} />}
       />
       <Route path="/" element={JWT ? <Layout /> : <Navigate to="/login" />}>
-        <Route path="post/:postid" element={<PostPage />} />
-        <Route index element={<PostsPage />} />
+        <Route path="new_post" element={<NewPost />} />
+        <Route path="post/:postid" element={<PostDetail />} />
+        <Route index element={<PostsList />} />
       </Route>
     </Routes>
   );
