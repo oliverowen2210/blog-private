@@ -5,6 +5,7 @@ const NewPost = function (props) {
   const editorRef = useRef(null);
   const [title, setTitle] = useState(null);
   const [text, setText] = useState(null);
+  const [publish, setPublish] = useState(false);
   return (
     <div className="newPostWrapper">
       <form className="newPostForm">
@@ -43,6 +44,33 @@ const NewPost = function (props) {
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
           />
+        </div>
+
+        <div className="newPostInputGroup">
+          <legend>Publish</legend>
+          <div class="newPostPublishRadios flexRow">
+            <div className="newPostPublishRadio flexRow">
+              <label htmlFor="publish">Yes</label>
+              <input
+                type="radio"
+                id="publish"
+                name="published"
+                value={true}
+                onChange={(event) => setPublish(event.target.value)}
+              />
+            </div>
+            <div className="newPostPublishRadio flexRow">
+              <label htmlFor="unpublish">No</label>
+              <input
+                type="radio"
+                id="unpublish"
+                name="published"
+                value={false}
+                onChange={(event) => setPublish(event.target.value)}
+                checked
+              />
+            </div>
+          </div>
         </div>
       </form>
     </div>
