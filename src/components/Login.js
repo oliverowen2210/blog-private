@@ -12,7 +12,7 @@ const Login = function(props) {
     event.preventDefault();
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/login`,
+        `${process.env.REACT_APP_BLOG_API_URL}/login`,
         {
           email,
           password,
