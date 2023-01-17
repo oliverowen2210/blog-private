@@ -6,7 +6,7 @@ import "./App.css";
 
 import PostsList from "./components/PostsList";
 import PostDetail from "./components/PostDetail";
-import NewPost from "./components/NewPost";
+import PostForm from "./components/PostForm";
 import Login from "./components/Login";
 import Layout from "./components/Layout";
 
@@ -36,8 +36,9 @@ function App() {
         element={JWT ? <Navigate to="/" /> : <Login checkJWT={checkJWT} />}
       />
       <Route path="/" element={JWT ? <Layout /> : <Navigate to="/login" />}>
-        <Route path="new_post" element={<NewPost />} />
+        <Route path="new_post" element={<PostForm />} />
         <Route path="post/:postid" element={<PostDetail />} />
+        <Route path="post/:postid/update" element={<PostForm />} />
         <Route index element={<PostsList />} />
       </Route>
     </Routes>
