@@ -79,7 +79,7 @@
   font-size: 1.5em;
   text-align: center;
   height: 125px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .layoutBody {
@@ -90,6 +90,12 @@
 .postsList {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+}
+
+.postsListNewPost {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
 .postCard {
@@ -121,9 +127,6 @@
 
 .postCardHeader {
   height: 36px;
-}
-
-.postCardInfo {
 }
 
 .postCardBody {
@@ -172,7 +175,9 @@
 }
 
 .postCardLink,
-.postDetailLink {
+.postDetailLink,
+.postCardLink:visited,
+.postDetailLink:visited {
   color: rgb(20, 114, 255);
 }
 
@@ -186,9 +191,6 @@
 .postDetailBody {
   border-bottom: 1px solid rgb(115, 118, 129);
   height: 250px;
-}
-
-.postDetailFooter {
 }
 
 .postDetailButtons {
@@ -253,4 +255,31 @@
   position: absolute;
   right: 42px;
   color: black;
+}
+
+.newPostInputGroup {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 1.1em;
+  height: 60px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.newPostInputGroup input,
+.newPostInputGroup textarea {
+  border-radius: 0.5em;
+  font-size: 1.1em;
+  padding: 4px 8px;
+  outline: 2px solid black;
+  box-shadow: 0px 0px 3px darkblue;
+  color: rgb(66, 66, 66);
+  border: none;
+}
+
+.newPostInputGroup input:focus {
+  outline: 3px solid black;
+  color: black;
+  box-shadow: 0px 0px 5px darkblue;
 }
