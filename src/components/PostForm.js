@@ -28,11 +28,6 @@ const PostForm = function (props) {
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
-      if (!token) {
-        const err = new Error("No JWT found.");
-        err.status = 404;
-        console.log(err);
-      }
       try {
         const postData = await fetch(
           `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${postID}`,

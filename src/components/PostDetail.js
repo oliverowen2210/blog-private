@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import format from "date-fns/format";
-
 import { ModalContext } from "./Layout";
+import parse from "html-react-parser";
 
 const PostDetail = function () {
   let [post, setPost] = useState(null);
@@ -22,12 +22,6 @@ const PostDetail = function () {
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
-      if (!token) {
-        const err = new Error("No JWT found.");
-        err.status = 404;
-        setError(err);
-        return;
-      }
       try {
         const postData = await fetch(
           `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${postID}`,
@@ -68,15 +62,7 @@ const PostDetail = function () {
     event.preventDefault();
     const deletePost = async function () {
       try {
-        console.log("delete post fired");
         const token = localStorage.getItem("token");
-
-        if (!token) {
-          const err = new Error("No JWT found.");
-          err.status = 404;
-          setError(err);
-          return;
-        }
         await fetch(
           `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${post.id}`,
           {
@@ -99,6 +85,46 @@ const PostDetail = function () {
     );
   }
 
+  function toggleVisibilityButtonHandler(event) {
+    if (!post) return;
+    event.preventDefault();
+    const modalText = `Are you sure you want to ${
+      post.published ? "unpublish" : "publish"
+    } ${post.title}?`;
+
+    /**Function being sent to modal*/
+    async function invertPostPublishedState() {
+      try {
+        const token = localStorage.getItem("token");
+
+        await fetch(
+          `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${post.id}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              published: !post.published,
+            }),
+          }
+        );
+        navigate(0);
+        document.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    createModal(
+      "Toggling Visibility",
+      modalText,
+      invertPostPublishedState,
+      "Yes, I am sure."
+    );
+  }
+
   return (
     <div className="postDetailWrapper">
       {error ? (
@@ -111,10 +137,12 @@ const PostDetail = function () {
             <h2 className="postDetailTitle">{post.title}</h2>
 
             <div className="flexGrow" />
-            <div className="postDetailButtons flexRow">
-              <button className="postDetailUpdateButton postDetailButton">
-                ✎
-              </button>
+            <div className="postDetailButtons flexCol">
+              <Link to={`/post/${post.id}/update`}>
+                <button className="postDetailUpdateButton postDetailButton">
+                  ✎
+                </button>
+              </Link>
               <button
                 className="postDetailDeleteButton postDetailButton"
                 onClick={(event) => {
@@ -137,9 +165,7 @@ const PostDetail = function () {
             </p>
             <p className="postDetailDate">Posted on {formattedDate}</p>
           </div>
-          <div className="postDetailBody">
-            <p className="postDetailText">{post.text}</p>
-          </div>
+          <div className="postDetailBody">{parse(post.text)}</div>
           <div className="postDetailFooter flexRow">
             {post.published ? (
               <p className="postDetailPublished">Published</p>
@@ -147,7 +173,12 @@ const PostDetail = function () {
               <p className="postDetailUnpublished">Unpublished</p>
             )}
             <div className="flexGrow" />
-            <button className="postDetailToggleVisibilityButton postDetailButton">
+            <button
+              className="postDetailToggleVisibilityButton postDetailButton"
+              onClick={(event) => {
+                toggleVisibilityButtonHandler(event);
+              }}
+            >
               O
             </button>
           </div>
