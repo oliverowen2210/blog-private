@@ -73,7 +73,7 @@
 }
 
 .layoutHeader {
-  background-color: rgb(0, 0, 32);
+  background-color: rgb(37, 37, 37);
   color: white;
   font-weight: bold;
   font-size: 1.5em;
@@ -105,8 +105,8 @@
 }
 
 .postCard {
-  border: 3px solid rgb(55, 90, 179);
-  box-shadow: 0px 0px 3px darkblue;
+  border: 3px solid rgb(56, 60, 71);
+  box-shadow: 0px 0px 3px rgb(72, 72, 94);
   width: 675px;
   background-color: white;
   border-radius: 1em;
@@ -166,7 +166,7 @@
 
 .postDetail {
   background-color: white;
-  width: 75vw;
+  width: 60vw;
   max-width: 1500px;
   padding: 12px 0;
   border-radius: 1em;
@@ -210,7 +210,7 @@
 
 .postDetailBody {
   border-bottom: 1px solid rgb(115, 118, 129);
-  min-height: 300px;
+  min-height: 350px;
   height: fit-content;
 
   word-break: break-word;
@@ -304,6 +304,9 @@
 
 .tox-tinymce {
   outline: 2px solid black;
+
+  width: 60vw;
+  max-width: 1500px;
 }
 
 .postFormInputGroup > input,
