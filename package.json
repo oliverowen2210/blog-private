@@ -13,6 +13,7 @@
     "@tinymce/tinymce-react": "^4.2.0",
     "axios": "^1.2.2",
     "date-fns": "^2.29.3",
+    "html-react-parser": "^3.0.8",
     "jsonwebtoken": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
