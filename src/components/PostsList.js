@@ -36,7 +36,7 @@ const PostsList = function () {
 
   return (
     <div className="postsListWrapper">
-      <Link to="/new_post" className="postsListNewPost">
+      <Link to="/post/new" className="postsListNewPost">
         <button>Create New Post</button>
       </Link>
       <div className="postsList">
@@ -46,7 +46,7 @@ const PostsList = function () {
           </div>
         ) : posts ? (
           posts.map((post) => {
-            return <PostCard post={post} />;
+            return <PostCard post={post} key={post.id} />;
           })
         ) : (
           <div>
