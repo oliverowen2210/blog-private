@@ -1,26 +1,71 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const PostForm = function (props) {
   const editorRef = useRef(null);
   const [title, setTitle] = useState(null);
   const [text, setText] = useState(null);
-  const [publish, setPublish] = useState(false);
+  const [published, setPublished] = useState(false);
   const postID = useParams().postid;
   const [busy, setBusy] = useState(postID ? true : false);
 
-  function submitButtonHandler(event) {
+  const navigate = useNavigate();
+
+  async function submitButtonHandler(event) {
     event.preventDefault();
-    console.log(`title: ${title}`);
-    console.log(`text: ${text}`);
-    console.log(`publish?: ${publish}`);
+
+    const token = localStorage.getItem("token");
+
+    /** if there is a postID in the url, update that post*/
+    if (postID) {
+      try {
+        await fetch(
+          `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${postID}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title,
+              text,
+              published,
+            }),
+          }
+        );
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      /**No postID, so create new post using the form values*/
+      try {
+        await fetch(`${process.env.REACT_APP_BLOG_API_URL}/private/posts/`, {
+          method: "POST",
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            text,
+            published,
+          }),
+        });
+
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 
   async function setPostData(title, text, publishStatus) {
     setTitle(title);
     setText(text);
-    setPublish(publishStatus);
+    setPublished(publishStatus);
     return;
   }
 
@@ -63,9 +108,9 @@ const PostForm = function (props) {
       <p>Loading...</p>
     </div>
   ) : (
-    <div className="PostFormWrapper">
-      <form className="PostForm">
-        <div className="PostFormInputGroup">
+    <div className="postFormWrapper">
+      <form className="postForm">
+        <div className="postFormInputGroup">
           <label htmlFor="title">Title</label>
           <input
             type="text"
@@ -73,16 +118,16 @@ const PostForm = function (props) {
             id="title"
             onChange={(event) => setTitle(event.target.value)}
             placeholder="My Blog Title"
-            value={title}
+            value={title ? title : ""}
           />
         </div>
-        <div className="PostFormInputGroup tinyMCE">
+        <div className="postFormInputGroup tinyMCE">
           <label htmlFor="text">Text</label>
           {/** the tinyMCE text editor */}
           <Editor
             onInit={(evt, editor) => (editorRef.current = editor)}
             apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-            initialValue={text}
+            value={text ? text : ""}
             onEditorChange={(newValue, editor) => setText(newValue)}
             init={{
               height: 500,
@@ -103,29 +148,30 @@ const PostForm = function (props) {
           />
         </div>
 
-        <div className="PostFormInputGroup">
+        <div className="postFormInputGroup">
           <legend>Publish</legend>
-          <div class="PostFormPublishRadios flexRow">
-            <div className="PostFormPublishRadio flexRow">
-              <label htmlFor="publish">Yes</label>
+          <div
+            className="postFormPublishRadios flexRow"
+            onChange={(event) => setPublished(event.target.value)}
+          >
+            <div className="postFormPublishRadio flexRow">
+              <label htmlFor="published">Yes</label>
               <input
                 type="radio"
-                id="publish"
-                name="published"
-                value={true}
-                onChange={(event) => setPublish(event.target.value)}
-                checked={publish ? true : false}
+                id="published"
+                name="publish"
+                value="publish"
+                defaultChecked={published}
               />
             </div>
-            <div className="PostFormPublishRadio flexRow">
-              <label htmlFor="unpublish">No</label>
+            <div className="postFormPublishRadio flexRow">
+              <label htmlFor="unpublished">No</label>
               <input
                 type="radio"
-                id="unpublish"
-                name="published"
-                value={false}
-                onChange={(event) => setPublish(event.target.value)}
-                checked={publish ? false : true}
+                id="unpublished"
+                name="publish"
+                value=""
+                defaultChecked={!published}
               />
             </div>
           </div>
