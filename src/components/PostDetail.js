@@ -110,7 +110,7 @@ const PostDetail = function () {
             }),
           }
         );
-        navigate(0);
+        navigate("/");
         document.location.reload();
       } catch (err) {
         console.log(err);
