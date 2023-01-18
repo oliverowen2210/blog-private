@@ -4,7 +4,7 @@ import format from "date-fns/format";
 
 const PostCard = function (props) {
   return (
-    <Link to={`/post/${props.post.id}`}>
+    <Link className="postCardWrapper" to={`/post/${props.post.id}`}>
       <div className="postCard" key={props.post.id}>
         <div className="postCardHeader">
           <h2 className="postCardTitle">{props.post.title}</h2>
@@ -22,12 +22,8 @@ const PostCard = function (props) {
             </a>
           </p>
           <p className="postCardDate">
-            Posted on {format(new Date(props.post.createdAt), "MMMM Qo, yyyy")}
+            Posted on {format(new Date(props.post.createdAt), "MMMM Do, yyyy")}
           </p>
-        </div>
-
-        <div className="postCardBody">
-          <p className="postText">{props.post.text}</p>
         </div>
 
         <div className="postCardFooter">
