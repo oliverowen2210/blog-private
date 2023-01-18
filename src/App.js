@@ -36,7 +36,7 @@ function App() {
         element={JWT ? <Navigate to="/" /> : <Login checkJWT={checkJWT} />}
       />
       <Route path="/" element={JWT ? <Layout /> : <Navigate to="/login" />}>
-        <Route path="new_post" element={<PostForm />} />
+        <Route path="post/new" element={<PostForm />} />
         <Route path="post/:postid" element={<PostDetail />} />
         <Route path="post/:postid/update" element={<PostForm />} />
         <Route index element={<PostsList />} />
