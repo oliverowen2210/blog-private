@@ -88,8 +88,9 @@
 }
 
 .postsList {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .postsListNewPost {
@@ -98,11 +99,15 @@
   margin-bottom: 24px;
 }
 
+.postCardWrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .postCard {
   border: 3px solid rgb(55, 90, 179);
   box-shadow: 0px 0px 3px darkblue;
-
-  width: 400px;
+  width: 675px;
   background-color: white;
   border-radius: 1em;
   margin-bottom: 32px;
@@ -126,7 +131,17 @@
 }
 
 .postCardHeader {
-  height: 36px;
+  min-height: 36px;
+  height: fit-content;
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 140px;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+
+.postCardTitle {
+  margin: 12px 0px;
 }
 
 .postCardBody {
@@ -151,7 +166,8 @@
 
 .postDetail {
   background-color: white;
-  width: 800px;
+  width: 75vw;
+  max-width: 1500px;
   padding: 12px 0;
   border-radius: 1em;
   border: 4px solid rgb(55, 90, 179);
@@ -167,7 +183,11 @@
 
 .postDetailHeader {
   padding: 0 24px;
-  height: 75px;
+  height: 32px;
+}
+
+.postDetailTitle {
+  margin: 0;
 }
 
 .postDetailInfo {
@@ -190,11 +210,14 @@
 
 .postDetailBody {
   border-bottom: 1px solid rgb(115, 118, 129);
-  height: 250px;
+  min-height: 300px;
+  height: fit-content;
+
+  word-break: break-word;
 }
 
 .postDetailButtons {
-  width: 80px;
+  height: 74px;
   justify-content: space-between;
   align-items: center;
 }
@@ -206,21 +229,19 @@
   position: relative;
 }
 
-.postDetailDeleteButton:hover::before {
-  content: "Delete";
-  position: absolute;
-  color: black;
-  bottom: 36px;
-  left: -48px;
-  width: 120px;
-}
-
 .postDetailUpdateButton:hover::before {
   content: "Update";
   position: absolute;
   color: black;
-  bottom: 36px;
-  left: -48px;
+  left: -100px;
+  width: 120px;
+}
+
+.postDetailDeleteButton:hover::before {
+  content: "Delete";
+  position: absolute;
+  color: black;
+  left: -100px;
   width: 120px;
 }
 
@@ -257,7 +278,7 @@
   color: black;
 }
 
-.PostFormInputGroup {
+.postFormInputGroup {
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -267,13 +288,13 @@
   margin-bottom: 24px;
 }
 
-.PostFormPublishRadio > input {
+.postFormPublishRadio > input {
   margin-left: 8px;
   margin-right: 16px;
   outline: none;
 }
 
-.PostFormPublishRadio > input:focus {
+.postFormPublishRadio > input:focus {
   outline: 1px solid gray;
 }
 
@@ -285,8 +306,8 @@
   outline: 2px solid black;
 }
 
-.PostFormInputGroup > input,
-.PostFormInputGroup > textarea {
+.postFormInputGroup > input,
+.postFormInputGroup > textarea {
   border-radius: 0.5em;
   font-size: 1.1em;
   padding: 4px 8px;
@@ -296,8 +317,32 @@
   border: none;
 }
 
-.PostFormInputGroup > input:focus {
+.postFormInputGroup > input:focus {
   outline: 3px solid black;
   color: black;
   box-shadow: 0px 0px 5px darkblue;
+}
+
+@media only screen and (max-width: 800px) {
+  .postCard {
+    width: 450px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .postCard {
+    width: 300px;
+  }
+
+  .postCardInfo {
+    flex-direction: column;
+  }
+
+  .postCardInfo p {
+    margin: 10px 0;
+  }
+
+  .postCardLink::after {
+    content: none;
+  }
 }
