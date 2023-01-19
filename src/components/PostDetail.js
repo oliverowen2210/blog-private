@@ -7,6 +7,7 @@ import parse from "html-react-parser";
 
 const PostDetail = function () {
   let [post, setPost] = useState(null);
+  let [comments, setComments] = useState(null);
   let [error, setError] = useState(null);
   let [formattedDate, setFormattedDate] = useState(null);
   const postID = parseInt(useParams().postid);
@@ -43,6 +44,7 @@ const PostDetail = function () {
         */
         formatDate(post);
         setPost(post);
+        setComments(comments);
       } catch (err) {
         setError(err.message);
         return;
@@ -56,7 +58,7 @@ const PostDetail = function () {
       }
       setError(err);
     }
-  }, [navigate, postID]);
+  }, [navigate, postID, comments]);
 
   function deleteButtonHandler(event) {
     event.preventDefault();
@@ -125,69 +127,88 @@ const PostDetail = function () {
     );
   }
 
-  return (
+  return error ? (
+    <div>
+      <p>{error}</p>
+    </div>
+  ) : post ? (
     <div className="postDetailWrapper">
-      {error ? (
-        <div>
-          <p>{error}</p>
-        </div>
-      ) : post ? (
-        <div className="postDetail" key={post.id}>
-          <div className="postDetailHeader flexRow">
-            <h2 className="postDetailTitle">{post.title}</h2>
+      <div className="postDetail" key={post.id}>
+        <div className="postDetailHeader flexRow">
+          <h2 className="postDetailTitle">{post.title}</h2>
 
-            <div className="flexGrow" />
-            <div className="postDetailButtons flexCol">
-              <Link to={`/post/${post.id}/update`}>
-                <button className="postDetailUpdateButton postDetailButton">
-                  ✎
-                </button>
-              </Link>
-              <button
-                className="postDetailDeleteButton postDetailButton"
-                onClick={(event) => {
-                  deleteButtonHandler(event);
-                }}
-              >
-                X
+          <div className="flexGrow" />
+          <div className="postDetailButtons flexCol">
+            <Link to={`/post/${post.id}/update`}>
+              <button className="postDetailUpdateButton postDetailButton">
+                ✎
               </button>
-            </div>
-          </div>
-          <div className="postDetailInfo flexRow">
-            <p>
-              By{" "}
-              <a
-                href="https://github.com/oliverowen2210"
-                className="postDetailLink"
-              >
-                Oliver Owen
-              </a>
-            </p>
-            <p className="postDetailDate">Posted on {formattedDate}</p>
-          </div>
-          <div className="postDetailBody">{parse(post.text)}</div>
-          <div className="postDetailFooter flexRow">
-            {post.published ? (
-              <p className="postDetailPublished">Published</p>
-            ) : (
-              <p className="postDetailUnpublished">Unpublished</p>
-            )}
-            <div className="flexGrow" />
+            </Link>
             <button
-              className="postDetailToggleVisibilityButton postDetailButton"
+              className="postDetailDeleteButton postDetailButton"
               onClick={(event) => {
-                toggleVisibilityButtonHandler(event);
+                deleteButtonHandler(event);
               }}
             >
-              O
+              X
             </button>
           </div>
         </div>
-      ) : (
-        <div>
-          <p>Loading...</p>
+        <div className="postDetailInfo flexRow">
+          <p>
+            By{" "}
+            <a
+              href="https://github.com/oliverowen2210"
+              className="postDetailLink"
+            >
+              Oliver Owen
+            </a>
+          </p>
+          <p className="postDetailDate">Posted on {formattedDate}</p>
+
+          <p className="postDetailComments">
+            {comments.length} {comments.length === 1 ? "comment" : "comments"}
+          </p>
         </div>
-      )}
+        <div className="postDetailBody">{parse(post.text)}</div>
+        <div className="postDetailFooter flexRow">
+          {post.published ? (
+            <p className="postDetailPublished">Published</p>
+          ) : (
+            <p className="postDetailUnpublished">Unpublished</p>
+          )}
+          <div className="flexGrow" />
+          <button
+            className="postDetailToggleVisibilityButton postDetailButton"
+            onClick={(event) => {
+              toggleVisibilityButtonHandler(event);
+            }}
+          >
+            O
+          </button>
+        </div>
+      </div>
+
+      <div className="postComments">
+        <h2>Comments</h2>
+        <form action="userComment">
+          <div className="postFormInputGroup userCommentText">
+            <label htmlFor="comment">Leave a comment</label>
+            <textarea name="comment"></textarea>
+          </div>
+          <div className="flexRow">
+            <div className="postFormInputGroup userCommentUsername">
+              <label htmlFor="username">Username (optional)</label>
+              <input name="username" placeholder="Anonymous"></input>
+            </div>
+            <button className="userCommentSubmitButton">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <p>Loading...</p>
     </div>
   );
 };
