@@ -24,6 +24,11 @@ const PostCard = function (props) {
           <p className="postCardDate">
             Posted on {format(new Date(props.post.createdAt), "MMMM Do, yyyy")}
           </p>
+
+          <p className="postCardComments">
+            {props.post.commentCount}{" "}
+            {props.post.commentCount === 1 ? "comment" : "comments"}
+          </p>
         </div>
 
         <div className="postCardFooter">
