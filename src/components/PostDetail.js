@@ -7,7 +7,7 @@ import parse from "html-react-parser";
 
 const PostDetail = function () {
   let [post, setPost] = useState(null);
-  let [comments, setComments] = useState(null);
+  let [comments, setComments] = useState([]);
   let [error, setError] = useState(null);
   let [formattedDate, setFormattedDate] = useState(null);
   const postID = parseInt(useParams().postid);
@@ -39,9 +39,7 @@ const PostDetail = function () {
         }
         const postJSON = await postData.json();
         const post = postJSON.post;
-        /** get comments for later 
-        /* const comments = postJSON.comments;
-        */
+        const comments = postJSON.comments;
         formatDate(post);
         setPost(post);
         setComments(comments);
@@ -58,7 +56,7 @@ const PostDetail = function () {
       }
       setError(err);
     }
-  }, [navigate, postID, comments]);
+  }, [navigate, postID]);
 
   function deleteButtonHandler(event) {
     event.preventDefault();
