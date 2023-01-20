@@ -15,8 +15,8 @@ const PostDetail = function () {
 
   const createModal = useContext(ModalContext);
 
-  function formatDate(post) {
-    setFormattedDate(format(new Date(post.createdAt), "MMMM Qo, yyyy"));
+  function formatDate(date) {
+    return format(new Date(date), "MMMM Qo, yyyy");
   }
 
   //get post
@@ -42,8 +42,7 @@ const PostDetail = function () {
         const commentsData = await fetch(
           `${process.env.REACT_APP_BLOG_API_URL}/comments/post/${postID}`
         );
-        const comments = commentsData.json();
-        formatDate(post);
+        setFormattedDate(formatDate(post.createdAt));
         setPost(post);
         setComments(comments);
       } catch (err) {
