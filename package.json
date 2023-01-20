@@ -1,7 +1,7 @@
 {
   "name": "blog-private",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "homepage": "https://oliverowen2210.github.io/blog-private",
   "engines": {
     "node": "v16.17.0"
