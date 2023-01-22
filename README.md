@@ -3,3 +3,6 @@ Este es el "frontend" privado de mi Blog API. Aqui puedo escribir y publicar art
 Enlace: https://oliverowen2210.github.io/blog-private/
 
 ![Foto del editor](https://user-images.githubusercontent.com/95064346/213930002-4ac7c04e-182f-4cc9-8448-af2e5c14f25a.png)
+
+# Autenticacion
+La verificacion de usuarios se realiza con estrategias de nombre/contraseña y un JWT.
