@@ -89,8 +89,7 @@ const PostForm = function (props) {
           console.log("No post with that ID was found.");
           return;
         }
-        const postJSON = await postData.json();
-        const post = postJSON.post;
+        const post = await postData.json();
         await setPostData(post.title, post.text, post.published);
         setBusy(false);
       } catch (err) {
