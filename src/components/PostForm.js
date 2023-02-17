@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const PostForm = function (props) {
   const editorRef = useRef(null);
+  const buttonRef = useRef(null);
   const [title, setTitle] = useState(null);
   const [text, setText] = useState(null);
   const [published, setPublished] = useState(false);
@@ -14,7 +15,7 @@ const PostForm = function (props) {
 
   async function submitButtonHandler(event) {
     event.preventDefault();
-
+    buttonRef.current.disabled = true;
     const token = localStorage.getItem("token");
 
     /** if there is a postID in the url, update that post*/
@@ -60,6 +61,7 @@ const PostForm = function (props) {
         console.log(err);
       }
     }
+    buttonRef.current.disabled = false;
   }
 
   async function setPostData(title, text, publishStatus) {
@@ -177,7 +179,9 @@ const PostForm = function (props) {
           </div>
         </div>
 
-        <button onClick={(event) => submitButtonHandler(event)}>Submit</button>
+        <button ref={buttonRef} onClick={(event) => submitButtonHandler(event)}>
+          Submit
+        </button>
       </form>
     </div>
   );
