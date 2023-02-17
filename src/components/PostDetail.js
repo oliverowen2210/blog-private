@@ -5,6 +5,8 @@ import format from "date-fns/format";
 import { ModalContext } from "./Layout";
 import parse from "html-react-parser";
 
+import socket from "../socket";
+
 const PostDetail = function () {
   let [post, setPost] = useState(null);
   let [comments, setComments] = useState([]);
@@ -67,7 +69,7 @@ const PostDetail = function () {
     const deletePost = async function () {
       try {
         const token = localStorage.getItem("token");
-        await fetch(
+        const request = await fetch(
           `${process.env.REACT_APP_BLOG_API_URL}/private/posts/${post.id}`,
           {
             method: "DELETE",
@@ -76,6 +78,8 @@ const PostDetail = function () {
             },
           }
         );
+
+        socket.emit("user_deleted_blog", post.id);
         navigate("/");
       } catch (err) {
         console.log(err);
