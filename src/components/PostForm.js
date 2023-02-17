@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import socket from "../socket";
+
 const PostForm = function (props) {
   const editorRef = useRef(null);
   const buttonRef = useRef(null);
