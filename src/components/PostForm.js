@@ -43,18 +43,26 @@ const PostForm = function (props) {
     } else {
       /**No postID, so create new post using the form values*/
       try {
-        await fetch(`${process.env.REACT_APP_BLOG_API_URL}/private/posts/`, {
-          method: "POST",
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            text,
-            published,
-          }),
-        });
+        const request = await fetch(
+          `${process.env.REACT_APP_BLOG_API_URL}/private/posts/`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title,
+              text,
+              published,
+            }),
+          }
+        );
+
+        const postData = await request.json();
+        const post = postData.post;
+
+        if (post.published) socket.emit("user_posted_blog", post);
 
         navigate("/");
       } catch (err) {
